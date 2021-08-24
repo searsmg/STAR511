@@ -1,6 +1,6 @@
 ---
-title: "STAT511: HW X"
-author: "Jane Smith"
+title: "STAR511: HW "
+author: "Megan Sears"
 output: word_document
 ---
 
@@ -10,6 +10,9 @@ library(knitr)
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 ```
+```{r}
+library(dplyr)
+```
 
 # Q1
 
@@ -17,12 +20,20 @@ knitr::opts_chunk$set(message = FALSE)
 
 ```{r}
 #Q1A
+pulse <- read.csv("ex3-34.txt", quote="'")
+str(pulse)
+hist(pulse$rates, col = "grey", main="Histogram of Pulse Rates", xlab="Rates")
+
 ```
 
 ## Q1B
 
 ```{r}
 #Q1B
+pulserate_stats <- pulse %>%
+  summarize("Pulse rate mean" = mean(rates),
+            "Pulse rate median" = median(rates))
+kable(pulserate_stats)
 ```
 
 # Q2
@@ -31,21 +42,29 @@ knitr::opts_chunk$set(message = FALSE)
 
 ```{r}
 #Q2A
+survival <- read.csv("ex3-7.txt", quote="'")
+str(survival)
+boxplot(survival, ylab="Survival times")
+
 ```
 
 ## Q2B
 
 ```{r}
 #Q2B
+#Standard therapy
+ST <- survival %>%
+  summarize("Standard therapy mean"= mean(StandardTherapy),
+            "Standard therapy SD" = sd(StandardTherapy))
+
+#New therapy
+NT <- survival %>%
+  summarize("New therapy mean"= mean(NewTherapy),
+            "New therapy SD" = sd(NewTherapy))
+
+kable(ST)
+kable(NT)
 ```
-
-# Q3 - Q4
-
-## Q3
-
-
-## Q4
-
 
 # Appendix
 ```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
