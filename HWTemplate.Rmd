@@ -1,0 +1,52 @@
+---
+title: "STAT511: HW X"
+author: "Jane Smith"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+#Retain (and do not edit) this code chunk!!!
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+```
+
+# Q1
+
+## Q1A
+
+```{r}
+#Q1A
+```
+
+## Q1B
+
+```{r}
+#Q1B
+```
+
+# Q2
+
+## Q2A
+
+```{r}
+#Q2A
+```
+
+## Q2B
+
+```{r}
+#Q2B
+```
+
+# Q3 - Q4
+
+## Q3
+
+
+## Q4
+
+
+# Appendix
+```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
+```
