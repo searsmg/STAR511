@@ -44,7 +44,7 @@ kable(pulserate_stats)
 #Q2A
 survival <- read.csv("ex3-7.txt", quote="'")
 str(survival)
-boxplot(survival, ylab="Survival times")
+boxplot(survival, main="Boxplots of therapy survival times", ylab="Survival times")
 
 ```
 
