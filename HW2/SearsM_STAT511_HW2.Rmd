@@ -12,9 +12,9 @@ knitr::opts_chunk$set(message = FALSE)
 ```
 
 # Q1
-P(Z < -0.21).
+P(Z <= -0.21) = `r pnorm(-0.21)`
 
-```{r}
+```{r, include=FALSE}
 #Q1
 pnorm(-0.21)
 ```
@@ -24,7 +24,7 @@ P(-1.44<Z<0.53)
 
 ```{r}
 #Q2
-pnorm(-1.44)-pnorm(0.53)
+pnorm(-53)-pnorm(0.53)
 ```
 
 # Q3
@@ -41,16 +41,21 @@ q3val <- 1-0.4180
 #Q4
 SATmean <- 510
 SATsd <- 115
-1-pnorm(600,mean=SATmean, sd=SATsd)
+prob600 <-pnorm(600,mean=SATmean, sd=SATsd, lower.tail=FALSE)
 
 ```
+# Q5
 
-# Q3 - Q4
+```{r}
+#Q5
+prob450 <- pnorm(450,mean=SATmean, sd=SATsd)
+```
+# Q6
 
-## Q3
+```{r}
+prob450 - prob600
+```
 
-
-## Q4
 
 
 # Appendix
