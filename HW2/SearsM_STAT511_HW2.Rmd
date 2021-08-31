@@ -1,0 +1,58 @@
+---
+title: "STAR511: HW 2"
+author: "Megan Sears"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+#Retain (and do not edit) this code chunk!!!
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+```
+
+# Q1
+P(Z < -0.21).
+
+```{r}
+#Q1
+pnorm(-0.21)
+```
+
+# Q2
+P(-1.44<Z<0.53)
+
+```{r}
+#Q2
+pnorm(-1.44)-pnorm(0.53)
+```
+
+# Q3
+
+```{r}
+#Q3
+q3val <- 1-0.4180
+1-qnorm(q3val)
+```
+
+# Q4
+
+```{r}
+#Q4
+SATmean <- 510
+SATsd <- 115
+1-pnorm(600,mean=SATmean, sd=SATsd)
+
+```
+
+# Q3 - Q4
+
+## Q3
+
+
+## Q4
+
+
+# Appendix
+```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
+```
