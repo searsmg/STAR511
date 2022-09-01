@@ -1,5 +1,5 @@
 ---
-title: "STAR511: HW "
+title: "STAR511: HW 1"
 author: "Megan Sears"
 output: word_document
 ---
@@ -9,42 +9,55 @@ output: word_document
 library(knitr)
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(message = FALSE)
-```
-```{r}
-library(dplyr)
+
+library(tidyverse)
 ```
 
 # Q1
 
 ## Q1A
 
-```{r}
-#Q1A
-pulse <- read.csv("ex3-34.txt", quote="'")
-str(pulse)
-hist(pulse$rates, col = "grey", main="Histogram of Pulse Rates", xlab="Rates")
+When using the structure function for the pulse dataframe, it shows there are 30 observations for one variable. The variable is rates and the structure of rates are integers. 
 
+```{r}
+pulse <- read.csv("ex3-34.txt", quote = "'")
+
+#Q1A
+str(pulse)
 ```
 
 ## Q1B
 
 ```{r}
 #Q1B
+hist(pulse$rates, col = "grey", main="Pulse Rates Histogram", xlab="Rates")
+```
+
+## Q1C
+
+The pulse rate mean is `r round(mean(pulse$rates), 2)` and the median is `r median(pulse$rates)` (shown in the table below).
+
+```{r}
+#Q1C
 pulserate_stats <- pulse %>%
-  summarize("Pulse rate mean" = mean(rates),
+  summarize("Pulse rate mean" = round(mean(rates), 2),
             "Pulse rate median" = median(rates))
+
 kable(pulserate_stats)
+
 ```
 
 # Q2
 
 ## Q2A
 
+When using the structure function for the survival dataframe, it shows there are 28 observations for two variables. The two variables are standard therapy and new therapy. Both variables are integers. 
+
 ```{r}
+survival <- read.csv("ex3-7.txt", quote = "'")
+
 #Q2A
-survival <- read.csv("ex3-7.txt", quote="'")
 str(survival)
-boxplot(survival, main="Boxplots of therapy survival times", ylab="Survival times")
 
 ```
 
@@ -52,19 +65,30 @@ boxplot(survival, main="Boxplots of therapy survival times", ylab="Survival time
 
 ```{r}
 #Q2B
+boxplot(survival, main="Boxplots of therapy survival times", ylab="Survival times (months)")
+
+```
+
+## Q2C
+
+The mean and standard devation for standard and new therapy are shown in the tables below.
+
+```{r}
+#Q2C
+
 #Standard therapy
 ST <- survival %>%
-  summarize("Standard therapy mean"= mean(StandardTherapy),
-            "Standard therapy SD" = sd(StandardTherapy))
-
+  summarize("Standard therapy mean"= round(mean(StandardTherapy),2),
+            "Standard therapy SD" = round(sd(StandardTherapy),2))
 #New therapy
 NT <- survival %>%
-  summarize("New therapy mean"= mean(NewTherapy),
-            "New therapy SD" = sd(NewTherapy))
-
+  summarize("New therapy mean"= round(mean(NewTherapy),2),
+            "New therapy SD" = round(sd(NewTherapy),2))
 kable(ST)
 kable(NT)
+
 ```
+
 
 # Appendix
 ```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}

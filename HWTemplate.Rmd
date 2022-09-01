@@ -1,6 +1,6 @@
 ---
 title: "STAT511: HW X"
-author: "Jane Smith"
+author: "Muriel Bristol"
 output: word_document
 ---
 
@@ -25,27 +25,7 @@ knitr::opts_chunk$set(message = FALSE)
 #Q1B
 ```
 
-# Q2
-
-## Q2A
-
-```{r}
-#Q2A
-```
-
-## Q2B
-
-```{r}
-#Q2B
-```
-
-# Q3 - Q4
-
-## Q3
-
-
-## Q4
-
+## Continue in this manner for remainder of questions
 
 # Appendix
 ```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
