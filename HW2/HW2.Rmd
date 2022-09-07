@@ -29,7 +29,7 @@ pnorm(0.53) - pnorm(-1.44)
 
 ```{r}
 #Q3
-1-qnorm(1-0.4180)
+qnorm(0.4180)
 ```
 
 # Q4
@@ -50,7 +50,7 @@ pnorm((450-510)/115)
 
 ```{r}
 #Q6
-pnorm((600-510)/115) - pnorm((450-510)/115)
+pnorm(600, mean = 510, sd = 115) - pnorm(450, mean = 510, sd = 115)
 ```
 
 # Q7
@@ -62,9 +62,11 @@ pnorm((600-510)/115) - pnorm((450-510)/115)
 
 # Q8
 
-A Z-score of approximately 0.956 indicates that Jane did unusually well on the exam. One standard deviation about the mean is 625 and Jane scored 620. In other words, a Z-score of 1.0 equals one standard deviation above the mean and Jane's was 0.956. 
+A Z-score of approximately 0.957 indicates that Jane did unusually well on the exam. One standard deviation about the mean is 625 and Jane scored 620. In other words, a Z-score of 1.0 equals one standard deviation above the mean and Jane's was 0.956. 
 
 # Q9
+
+A score of at least `r round(qnorm(0.90, mean = 510, sd = 115), 0)` is needed to join the honor society. 
 
 ```{r}
 #Q9
@@ -87,9 +89,10 @@ The data are right skewed based on the histogram.
 #Q11
 
 hormone <- read.csv('Hormone.csv')
-str(hormone)
+#str(hormone)
 
-hist(hormone$TSH)
+hist(hormone$TSH, main = 'TSH hormone',
+     xlab = 'TSH')
 
 ```
 
