@@ -51,51 +51,63 @@ pnorm((450-510)/115)
 ```{r}
 #Q6
 pnorm((600-510)/115) - pnorm((450-510)/115)
-
 ```
 
 # Q7
 
 ```{r}
 #Q7
-
-
+(620-510)/115
 ```
 
 # Q8
 
-```{r}
-#Q2
-```
+A Z-score of approximately 0.956 indicates that Jane did unusually well on the exam. One standard deviation about the mean is 625 and Jane scored 620. In other words, a Z-score of 1.0 equals one standard deviation above the mean and Jane's was 0.956. 
 
 # Q9
 
 ```{r}
-#Q2
+#Q9
+qnorm(0.90, mean = 510, sd = 115)
 ```
 
 # Q10
 
 ```{r}
-#Q2
+#Q10
+pnorm(485, mean = 510, sd = 115/sqrt(100))
+
 ```
 
 # Q11
 
+The data are right skewed based on the histogram. 
+
 ```{r}
-#Q2
+#Q11
+
+hormone <- read.csv('Hormone.csv')
+str(hormone)
+
+hist(hormone$TSH)
+
 ```
 
 # Q12
 
-```{r}
-#Q2
-```
+Yes, I would expect the distribution to become near normal with 1000 observations based on the Central Limit Theory. 
 
 # Q13
 
+Median = `r median(hormone$TSH)`
+Mean = `r mean(hormone$TSH)`
+Standard deviation = `r sd(hormone$TSH)`
+
 ```{r}
-#Q2
+#Q13
+median(hormone$TSH)
+mean(hormone$TSH)
+sd(hormone$TSH)
 ```
 
 # Appendix
