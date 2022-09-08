@@ -9,6 +9,8 @@ output: word_document
 library(knitr)
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(message = FALSE)
+
+library(tidyverse)
 ```
 
 # Q1
@@ -62,11 +64,11 @@ pnorm(600, mean = 510, sd = 115) - pnorm(450, mean = 510, sd = 115)
 
 # Q8
 
-A Z-score of approximately 0.957 indicates that Jane did unusually well on the exam. One standard deviation about the mean is 625 and Jane scored 620. In other words, a Z-score of 1.0 equals one standard deviation above the mean and Jane's was 0.956. 
+A Z-score of approximately 0.957 indicates that Jane did unusually well on the exam. One standard deviation above the mean is 625 and Jane scored 620. In other words, a Z-score of 1.0 equals one standard deviation above the mean, and Jane's was 0.956. 
 
 # Q9
 
-A score of at least `r round(qnorm(0.90, mean = 510, sd = 115), 0)` is needed to join the honor society. 
+A score of at least `r round(qnorm(0.90, mean = 510, sd = 115), 2)` or greater is needed to join the honor society. 
 
 ```{r}
 #Q9
@@ -102,15 +104,19 @@ Yes, I would expect the distribution to become near normal with 1000 observation
 
 # Q13
 
-Median = `r median(hormone$TSH)`
-Mean = `r mean(hormone$TSH)`
-Standard deviation = `r sd(hormone$TSH)`
+Median = `r median(hormone$TSH)`  
+Mean = `r mean(hormone$TSH)`  
+Standard deviation = `r sd(hormone$TSH)`  
 
 ```{r}
 #Q13
-median(hormone$TSH)
-mean(hormone$TSH)
-sd(hormone$TSH)
+
+hormone_stats <-  hormone %>%
+  summarize(Median = median(TSH),
+            Mean = mean(TSH),
+            StDev = sd(TSH))
+
+kable(hormone_stats)
 ```
 
 # Appendix
