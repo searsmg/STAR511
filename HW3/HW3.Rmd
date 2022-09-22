@@ -1,0 +1,210 @@
+---
+title: "STAR511: HW 3"
+author: "Megan Sears"
+output: word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+#Retain (and do not edit) this code chunk!!!
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+library(tidyverse)
+```
+
+# Q1
+
+The population is women receiving SNAP benefits who are living in Denver, CO, and inferential statements can be made on that.
+
+```{r}
+#Q1
+diet <- read_csv('Diet.csv')
+#str(diet)
+#diet
+
+```
+
+# Q2
+
+```{r}
+#Q2
+ggplot(diet, aes(x=HEI)) +
+  geom_histogram(color='white', fill='black', binwidth=5) +
+  xlab('Health Eating Index')
+
+```
+
+# Q3
+
+```{r}
+#Q3
+diet_summary <- diet %>%
+  summarize(Mean = round(mean(HEI), 2),
+            Standard_Deviation = round(sd(HEI),2))
+
+kable(diet_summary)
+
+```
+
+# Q4
+
+The 95% confidence interval for the population mean is (51.06, 58.51).
+
+```{r}
+#Q4
+t.test(diet$HEI)
+```
+
+# Q5
+We are 95% confident that the true population mean health eating index is between 51.06 and 58.51.
+
+# Q6
+
+The data are normally distributed (relatively) even with a sample size smaller than 30. Therefore, the confidence intervals are valid.
+
+# Q7
+
+We reject the null hypothesis since the null hypothesized mean falls outside of the confidence interval. The 95% confidence interval is 51.06 to 58.51 and the null hypothesis is 60, which is not within.
+
+# Q8
+
+The p-value************
+
+```{r}
+#Q8
+t.test(diet$HEI, mu=60)$p.value
+
+```
+
+# Q9
+
+Decrease***
+
+# Q10
+
+Increase***
+
+# Q11
+
+Decrease***
+
+# Q12
+
+A. Reject the null hypothesis if it does not equal 5. 
+
+B. The test statistic is `ts`.
+
+C. 
+
+
+```{r}
+#Q12
+n <- 10
+mu <- 4.62
+sd <- 0.58
+h0 <- 5
+
+table <- qt(0.05/2, df=n-1, lower.tail = F)
+
+ts <- (mu - h0)/ (sd*sqrt(n))
+
+```
+
+# Q13
+
+```{r}
+#Q13
+```
+
+# Q14
+
+```{r}
+#Q14
+```
+
+# Q15
+
+```{r}
+#Q15
+```
+
+# Q16
+
+```{r}
+#Q16
+```
+
+# Q17
+
+```{r}
+#Q17
+```
+
+# Q18
+
+```{r}
+#Q18
+```
+
+# Q19
+
+```{r}
+#Q19
+```
+
+# Q20
+
+```{r}
+#Q20
+```
+
+# Q21
+
+```{r}
+#Q21
+```
+
+# Q22
+
+```{r}
+#Q22
+```
+
+# Q23
+
+```{r}
+#Q23
+```
+
+# Q24
+
+```{r}
+#Q24
+```
+
+# Q25
+
+```{r}
+#Q25
+```
+
+# Q26
+
+```{r}
+#Q26
+```
+
+# Q27
+
+```{r}
+#Q27
+```
+
+## Continue in this manner for remainder of questions
+
+# Appendix
+```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
+```

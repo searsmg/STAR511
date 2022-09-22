@@ -1,6 +1,6 @@
 ---
-title: "STAT511: HW X"
-author: "Muriel Bristol"
+title: "STAR511: HW 3"
+author: "Megan Sears"
 output: word_document
 ---
 
