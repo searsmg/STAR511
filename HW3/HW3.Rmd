@@ -103,13 +103,13 @@ C.
 ```{r}
 #Q12
 n <- 10
-mu <- 4.62
+sampmean <- 4.62
 sd <- 0.58
 h0 <- 5
 
-table <- qt(0.05/2, df=n-1, lower.tail = F)
+rejreg <- qt(0.975, df=n-1)
 
-ts <- (mu - h0)/ (sd*sqrt(n))
+ts <- (sampmean - h0)/ (sd/sqrt(n))
 
 ```
 
