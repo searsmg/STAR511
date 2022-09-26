@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 
 library(tidyverse)
+library(here)
+
 ```
 
 # Q1
@@ -21,7 +23,7 @@ The population is women receiving SNAP benefits who are living in Denver, CO, an
 
 ```{r}
 #Q1
-diet <- read_csv('Diet.csv')
+diet <- read_csv(here('./HW3/Diet.csv'))
 #str(diet)
 #diet
 
@@ -71,7 +73,7 @@ We reject the null hypothesis since the null hypothesized mean falls outside of 
 
 # Q8
 
-The p-value************
+Reject the null hypothesis since the p-value is less than alpha.
 
 ```{r}
 #Q8
@@ -81,24 +83,17 @@ t.test(diet$HEI, mu=60)$p.value
 
 # Q9
 
-Decrease***
+As sample size increases, the CI width will decrease. This is because we are able to estimate a population proportion more accurately with an increased sample size. 
 
 # Q10
 
-Increase***
+As standard deviation increases, the CI width will increase. Since standard deviation measures the deviation in the data, more variation will increase the CI width.
 
 # Q11
 
-Decrease***
+The CI width will decrease as the confidence level decreases since CI width decreases as confidence level does. 
 
 # Q12
-
-A. Reject the null hypothesis if it does not equal 5. 
-
-B. The test statistic is `ts`.
-
-C. 
-
 
 ```{r}
 #Q12
@@ -107,103 +102,187 @@ sampmean <- 4.62
 sd <- 0.58
 h0 <- 5
 
-rejreg <- qt(0.975, df=n-1)
+rr <- qt(0.975, df=n-1)
 
-ts <- (sampmean - h0)/ (sd/sqrt(n))
+ts <- (sampmean - h0) / (sd/sqrt(n))
 
 ```
+
+A. Reject the null hypothesis if |t| is greater than `r round(rr, 2)`. 
+
+B. The test statistic is `r round(ts, 2)`.
+
+C. The conclusion is fail to reject the null hypothesis. 
 
 # Q13
 
 ```{r}
 #Q13
+
+rr <- qt(0.05, df=n-1)
+
+#ts is the same as Q12
+#ts <- (sampmean - h0) / (sd/sqrt(n))
+
+
 ```
+
+A. Reject the null hypothesis if t is less than `r round(rr, 2)`. 
+
+B. The test statistic is `r round(ts, 2)`.
+
+C. The conclusion is to reject the null hypothesis. 
 
 # Q14
 
 ```{r}
 #Q14
+n <- 40
+
+rr <- qt(0.975, df=n-1)
+
+ts <- (sampmean - h0) / (sd/sqrt(n))
+
 ```
+
+A. Reject the null hypothesis if |t| is greater than `r round(rr, 2)`. 
+
+B. The test statistic is `r round(ts, 2)`.
+
+C. The conclusion is to reject the null hypothesis. 
 
 # Q15
 
-```{r}
-#Q15
-```
+As sample size increases, there is a stronger likelihood to reject the null hypothesis.
 
 # Q16
 
+Based on the histogram and qqplot, the data appear to be approximately normal. The histgram roughly has greater values towards the middle with tails on both sides. For the qqplot, since the points are near or on the line, it supports that data are approximately normal. 
+
 ```{r}
 #Q16
+pills <- read_csv(here('./HW3/Pills.csv'))
+str(pills)
+
+ggplot(pills, aes(x=content)) +
+  geom_histogram(color='white', fill='black', binwidth=1) +
+  xlab('Content (mg)')
+
+ggplot(pills, aes(sample = content)) + 
+  stat_qq() + stat_qq_line() +
+  xlab('Theoretical quantiles') +
+  ylab('Sample quantiles')
+
 ```
 
 # Q17
 
+The sample estimates mean is 19.5 and the 95% confidence interval is (19.08, 19.92).
+
 ```{r}
 #Q17
+t.test(pills$content)
 ```
 
 # Q18
 
+
 ```{r}
 #Q18
+t.test(pills$content, mu=20)
+
+ts <- round(t.test(pills$content, mu=20)$statistic, 2)
+p <-round(t.test(pills$content, mu=20)$p.value, 2)
+
 ```
+
+A. The null hypothesis is the true mean equals 20 and the alternative hypothesis does not equal 20. 
+
+B. The test satistic is `r ts` and the p-value is `r p`.
+
+C. Reject the null hypothesis since the sample mean is 19.5 (less than 20). Therefore, this batch of pill should be destroyed. 
 
 # Q19
 
+
 ```{r}
 #Q19
+t.test(pills$content, mu=20, alternative = 'greater')
+
+ts <- round(t.test(pills$content, mu=20, alternative = 'less')$statistic, 2)
+p <-round(t.test(pills$content, mu=20, alternative = 'less')$p.value, 2)
+
+
 ```
+
+A. The null hypothesis is less than 20, and the alternative hypothesis is greater than or equal to 20. 
+
+B.The test satistic is `r ts` and the p-value is `r p`. 
+
+C. Fail to reject the null hypothesis since the sample mean estimate is less than 20. Therefore, the batch of pills does not need to be destroyed.
 
 # Q20
 
+The estimated standard deviation is 0.09.
+
 ```{r}
 #Q20
+sd_estimate <- (0.9 - 0.36) / 6
+
 ```
 
-# Q21
+# Q21**********
 
 ```{r}
 #Q21
+#power.t.test(sd = sd_estimate, power = 0.95, type = 'one.sample',
+#             alternative = 'one.sided')
+
+
 ```
 
 # Q22
 
+The power is 57% when there are 85 observations.
+
 ```{r}
 #Q22
+alpha <- 0.05
+n <- 85
+sd <- 1.5
+delta <- 0.3
+
+power.t.test(n, delta, sd, alpha, type = 'one.sample', alternative = 'one.sided')
+
 ```
 
 # Q23
 
-```{r}
-#Q23
-```
+As sample size increases, so does power. Thus, power would be higher than the power in question 22.
 
 # Q24
 
-```{r}
-#Q24
-```
+Power would decrease from question 22 since the power decreases as the significance level does.
 
 # Q25
 
-```{r}
-#Q25
-```
+The power would be higher than question 22. The power will increase as the delta value does.
 
 # Q26
 
-```{r}
-#Q26
-```
+As standard deviation increases, power will decrease. Therefore, the power will decrease from question 22.
 
 # Q27
 
+A total of 156 samples are required to achieve a power of 80%.
+
 ```{r}
 #Q27
-```
+power.t.test(delta = delta, sd = sd, power = 0.8, type = 'one.sample',
+             alternative = 'one.sided')
 
-## Continue in this manner for remainder of questions
+
+```
 
 # Appendix
 ```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
