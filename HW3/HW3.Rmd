@@ -162,7 +162,7 @@ Based on the histogram and qqplot, the data appear to be approximately normal. T
 ```{r}
 #Q16
 pills <- read_csv(here('./HW3/Pills.csv'))
-str(pills)
+#str(pills)
 
 ggplot(pills, aes(x=content)) +
   geom_histogram(color='white', fill='black', binwidth=1) +
@@ -198,16 +198,16 @@ p <-round(t.test(pills$content, mu=20)$p.value, 2)
 
 A. The null hypothesis is the true mean equals 20 and the alternative hypothesis does not equal 20. 
 
-B. The test satistic is `r ts` and the p-value is `r p`.
+B. The test statistic is `r ts` and the p-value is `r p`.
 
-C. Reject the null hypothesis since the sample mean is 19.5 (less than 20). Therefore, this batch of pill should be destroyed. 
+C. Reject the null hypothesis (and accept the alternative hypothesis) since the p-value is less than alpha. Therefore, this batch of pill should be destroyed. 
 
 # Q19
 
 
 ```{r}
 #Q19
-t.test(pills$content, mu=20, alternative = 'greater')
+t.test(pills$content, mu=20, alternative = 'less')
 
 ts <- round(t.test(pills$content, mu=20, alternative = 'less')$statistic, 2)
 p <-round(t.test(pills$content, mu=20, alternative = 'less')$p.value, 2)
@@ -215,11 +215,11 @@ p <-round(t.test(pills$content, mu=20, alternative = 'less')$p.value, 2)
 
 ```
 
-A. The null hypothesis is less than 20, and the alternative hypothesis is greater than or equal to 20. 
+A. The null hypothesis is greater than or equal to 20, and the alternative hypothesis is less than 20. 
 
 B.The test satistic is `r ts` and the p-value is `r p`. 
 
-C. Fail to reject the null hypothesis since the sample mean estimate is less than 20. Therefore, the batch of pills does not need to be destroyed.
+C. Reject the null hypothesis since (and accept the alternative hypothesis) since the p-value is less than alpha. Therefore, the batch of pills does not need to be destroyed.
 
 # Q20
 
@@ -231,12 +231,22 @@ sd_estimate <- (0.9 - 0.36) / 6
 
 ```
 
-# Q21**********
+# Q21
+
+The minimum sample size to achieve a 95% ME < 0.03 is 38.
 
 ```{r}
 #Q21
 #power.t.test(sd = sd_estimate, power = 0.95, type = 'one.sample',
 #             alternative = 'one.sided')
+
+
+n <- ((2*sd_estimate) / 0.03)^2
+
+n <- seq(from=30, to=40, by = 1)
+alpha <- 0.05
+ME <- qt(1-(alpha/2), df=n-1)*sd_estimate/sqrt(n)
+data.frame(n, ME)
 
 
 ```
@@ -258,19 +268,21 @@ power.t.test(n, delta, sd, alpha, type = 'one.sample', alternative = 'one.sided'
 
 # Q23
 
-As sample size increases, so does power. Thus, power would be higher than the power in question 22.
+In question 23-26, the NCP equation is used to described how power changes since power is larger when NCP is.
+
+As sample size increases, so does power since based on the NCP equation, a large sample size will increase the power. Thus, power would be higher than the power in question 22.
 
 # Q24
 
-Power would decrease from question 22 since the power decreases as the significance level does.
+Power would decrease from question 22 since the power decreases as the significance level does. We would require stronger evidence to reject the null hypothesis if alpha were smaller.
 
 # Q25
 
-The power would be higher than question 22. The power will increase as the delta value does.
+The power would be higher than question 22. The power will increase as the delta value does based on NCP.
 
 # Q26
 
-As standard deviation increases, power will decrease. Therefore, the power will decrease from question 22.
+As standard deviation increases, power will decrease based on NCP. Therefore, the power will decrease from question 22.
 
 # Q27
 
