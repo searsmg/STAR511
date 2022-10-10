@@ -14,6 +14,7 @@ knitr::opts_chunk$set(message = FALSE)
 
 library(tidyverse)
 library(here)
+library(coin)
 
 ```
 
@@ -91,14 +92,12 @@ ts
 pval <- q5test$p.value ## do I need to multiple by 2, how to use to reject or ftr the Ho
 pval
 
-
-
 ```
 
 The null hypothesis is  mu1 - mu2 (Current standard deviation - Stored standard deviation) equal zero and the alternative hypothesis is that it does not equal 0.  
 
-The test statistics is `ts`. 
-The p-value is `pval`.  
+The test statistics is `r ts`. 
+The p-value is `r pval`.  
 Based on the p-value, XXXXXXXXXXXXX
 
 # Q6
@@ -115,6 +114,59 @@ q5test
 
 ```
 
+# Q8
+
+```{r}
+#Q8
+salt <- read_csv(here('./HW4/ex6-28.txt'), quote = "'")
+
+salt_long <- salt %>%
+  mutate(Difference = After - Before) %>%
+  pivot_longer(everything(), names_to = 'Group',
+             values_to = 'Salt_Sensitivity')
+
+salt_boxp <- ggplot(salt_long, aes(x=Group, y=Salt_Sensitivity)) +
+  geom_boxplot()
+
+salt_boxp
+
+```
+
+# Q9
+
+A. The statistical hypotheses are the null hypothesis is the mean of the differences are equal to 0 and the alternative hypothesis is they are not equal to 0.
+
+```{r}
+#Q9
+salt <- salt %>%
+  mutate(Difference = After - Before)
+
+q9 <- t.test(salt$After, salt$Before, paired = T)
+q9
+
+ts <- q9$statistic
+ts
+
+pval <- q9$p.value
+pval
+
+```
+
+B. T-test output above. The test statistic is `r ts` and the p-value is `r pval`.
+
+C. The confidence interval is -9.37 to 4.21. 
+
+# Q10
+
+```{r}
+#Q10
+wilcoxsign_test(After ~ Before, data = salt, distribution = 'exact')
+
+```
+
+#Q11
+
+The p-value (0.41) is greater than alpha, which indicates failing to reject the null hypothesis (difference of means = 0). Therefore, we did not find evidence that there is a difference between means. Additionally, the confidence interval of -9.37 to 4.21 includes 0, indicating that we can conclude that there is not a difference between means. ***
 
 
 
