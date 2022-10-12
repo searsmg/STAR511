@@ -49,7 +49,8 @@ pot_long <- potency %>%
   pivot_longer(everything(), names_to = 'Sample',
                values_to = 'Potency')
 
-boxplot <- ggplot(pot_long, aes(x=Sample, y=Potency)) + geom_boxplot()
+boxplot <- ggplot(pot_long, aes(x=Sample, y=Potency)) + geom_boxplot() +
+  ggtitle("Drug potency from current and stored bottles")
 
 boxplot
 
@@ -79,7 +80,7 @@ sd_ratio
 
 ```
 
-# Q5 **
+# Q5 
 
 ```{r}
 #Q5
@@ -97,7 +98,9 @@ pval
 The null hypothesis is  mu1 - mu2 (Current standard deviation - Stored standard deviation) equal zero and the alternative hypothesis is that it does not equal 0.  
 
 The test statistics is `r ts`. 
+
 The p-value is `r pval`.  
+
 The p-value is less than 0.05. Therefore, the null hypothesis should be rejected. We find evidence that there is a difference in means.
 
 # Q6 
@@ -123,10 +126,11 @@ salt <- read_csv(here('./HW4/ex6-28.txt'), quote = "'")
 salt_long <- salt %>%
   mutate(Difference = After - Before) %>%
   pivot_longer(everything(), names_to = 'Group',
-             values_to = 'Salt_Sensitivity')
+             values_to = 'Salt_Sensitivity') 
 
 salt_boxp <- ggplot(salt_long, aes(x=Group, y=Salt_Sensitivity)) +
-  geom_boxplot()
+  geom_boxplot() +
+  ggtitle('Salt sensitivity after treatment for high blood pressure')
 
 salt_boxp
 
@@ -134,7 +138,7 @@ salt_boxp
 
 # Q9
 
-A. The statistical hypotheses are the null hypothesis is the mean of the differences are equal to 0 and the alternative hypothesis is they are not equal to 0.
+A. The statistical hypotheses are the null hypothesis is the population difference in means are equal to 0 and the alternative hypothesis is they are not equal to 0.
 
 ```{r}
 #Q9
@@ -164,9 +168,19 @@ wilcoxsign_test(After ~ Before, data = salt, distribution = 'exact')
 
 ```
 
-#Q11
+# Q11
 
-The p-value (0.41) is greater than alpha, which indicates failing to reject the null hypothesis. Therefore, we did not find evidence that there is a difference between means. Additionally, the confidence interval of -9.37 to 4.21 includes 0, indicating that we can conclude that there is not a difference between means.
+```{r}
+#Q11
+ggplot(salt, aes(sample = Difference)) + 
+  stat_qq() + stat_qq_line() +
+  xlab('Theoretical quantiles') +
+  ylab('Sample quantiles')
+
+```
+
+
+Based on the qqplot above, the differences are not normally distributed. Therefore, the Wilcoxon paired signed rank test will be used to discuss the salt sensitivity before and after treatment for high blood pressure. The p-value (0.28) is greater than alpha, which indicates failing to reject the null hypothesis. Therefore, we did not find evidence that there is a difference between means. Since there is not a difference between there is likely no change in salt sensitivity before and after treatment for high blood pressure.
 
 
 # Appendix
