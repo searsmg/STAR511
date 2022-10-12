@@ -18,7 +18,7 @@ library(coin)
 
 ```
 
-# Q1 **
+# Q1
 
 A sample size of 15 per group is required to achieve a 90% power using alpha = 0.05.
 
@@ -89,7 +89,7 @@ q5test
 ts <- round(q5test$statistic, 2)
 ts
 
-pval <- q5test$p.value ## do I need to multiple by 2, how to use to reject or ftr the Ho
+pval <- q5test$p.value 
 pval
 
 ```
@@ -98,11 +98,11 @@ The null hypothesis is  mu1 - mu2 (Current standard deviation - Stored standard 
 
 The test statistics is `r ts`. 
 The p-value is `r pval`.  
-Based on the p-value, XXXXXXXXXXXXX
+The p-value is less than 0.05. Therefore, the null hypothesis should be rejected. We find evidence that there is a difference in means.
 
-# Q6
+# Q6 
 
-The p-value is the probability of observing the test statistic (4.24) as or more supportive of the alternative hypothesis (u1 - u2 does not equal 0) than the actual observed value, given the null hypothesis is true. In other words, the probability;ity that if H0: u1 - u2 = 0 was true, a new sample of data would give a test statistic at least as large as 4.24 in absolute magnitude. 
+The p-value is the probability that a new sample would produce would produce a test statistic at least as large as 4.24 in magnitude if the null hypothesis were true. 
 
 # Q7
 
@@ -166,11 +166,8 @@ wilcoxsign_test(After ~ Before, data = salt, distribution = 'exact')
 
 #Q11
 
-The p-value (0.41) is greater than alpha, which indicates failing to reject the null hypothesis (difference of means = 0). Therefore, we did not find evidence that there is a difference between means. Additionally, the confidence interval of -9.37 to 4.21 includes 0, indicating that we can conclude that there is not a difference between means. ***
+The p-value (0.41) is greater than alpha, which indicates failing to reject the null hypothesis. Therefore, we did not find evidence that there is a difference between means. Additionally, the confidence interval of -9.37 to 4.21 includes 0, indicating that we can conclude that there is not a difference between means.
 
-
-
-## Continue in this manner for remainder of questions
 
 # Appendix
 ```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
