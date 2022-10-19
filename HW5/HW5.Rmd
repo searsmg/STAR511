@@ -1,0 +1,97 @@
+---
+title: "STAR511: HW 5"
+author: "Megan Sears"
+output: word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+#Retain (and do not edit) this code chunk!!!
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+library(tidyverse)
+library(here)
+
+```
+
+# Q1 
+
+```{r}
+#Q1
+baseballs <- read_csv(here('./HW5/exp07-9.txt'), quote = "'")
+
+ggplot(baseballs, aes(x=coefficient)) +
+  geom_histogram(color='white', fill='black', binwidth = 2) +
+  xlab('Baseball mean rebound coefficients') +
+  ggtitle('Histogram of baseball mean rebound coefficients')
+          
+
+
+```
+
+# Q2
+
+```{r}
+#Q2
+bball_summ <- baseballs %>%
+  summarize(Mean = round(mean(coefficient),2),
+            StDev = round(sd(coefficient),2))
+
+kable(bball_summ)
+
+```
+
+# Q3
+
+Since the p-value is greater than 0.05 (assuming alpha is 0.05), which indicates the null hypothesis (greater than or equal to 85) should not be rejected. ***********
+
+```{r}
+#Q3
+t.test(baseballs$coefficient, alternative = 'less', mu = 85)
+```
+
+# Q4
+
+```{r}
+#Q4A
+n <- 40
+s <- sd(baseballs$coefficient)
+ts <- ((n-1)*(s^2))/4
+
+#Q4B
+pval <- 1-pchisq(ts, df = n-1)
+
+```
+
+A. The test statistic is `r ts`.  
+
+B. The p-value is `r pval`.
+
+C. The null hypothesis should be rejected since the p-value is less than 0.05. Therefore, we find evidence that the true standard deviation of baseball mean rebound coefficients is greater than 2. 
+
+# Q5
+
+In HW4, I stated since the max standard deviation (Current samples) and min standard deviation (Stored samples) ratio is less than 2, we can assume "equal" variances and use a pooled two-sample t-test. Since the sample sizes are equal, the effect of unequal variances on the t-test is minimal. However, pooled test is preferred since the standard deviation ratio is less than 2.
+
+Since the p-value is greater than 0.05, the null hypothesis of 0 should be rejected. This gives evidence that the variances are not equal. *********
+
+
+```{r}
+#Q5
+potency <- read_csv(here('./HW4/ex6-59.txt'), quote = "'") %>%
+  pivot_longer(everything(), names_to = 'Group',
+               values_to = 'Potency')
+
+var.test(Potency ~ Group, data = potency)
+
+```
+
+
+## Continue in this manner for remainder of questions
+
+# Appendix
+```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
+```
