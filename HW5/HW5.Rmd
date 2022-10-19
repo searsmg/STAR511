@@ -28,8 +28,6 @@ ggplot(baseballs, aes(x=coefficient)) +
   xlab('Baseball mean rebound coefficients') +
   ggtitle('Histogram of baseball mean rebound coefficients')
           
-
-
 ```
 
 # Q2
