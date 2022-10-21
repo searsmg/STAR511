@@ -14,6 +14,7 @@ knitr::opts_chunk$set(message = FALSE)
 
 library(tidyverse)
 library(here)
+library(EnvStats)
 
 ```
 
@@ -44,7 +45,7 @@ kable(bball_summ)
 
 # Q3
 
-Since the p-value is greater than 0.05 (assuming alpha is 0.05), which indicates the null hypothesis (greater than or equal to 85) should not be rejected. ***********
+Since the p-value is greater than 0.05 (assuming alpha is 0.05), which indicates the null hypothesis (greater than or equal to 85) should not be rejected. No, our data do not suggest that population mean rebound coefficients is less than 85.
 
 ```{r}
 #Q3
@@ -62,33 +63,30 @@ ts <- ((n-1)*(s^2))/4
 #Q4B
 pval <- 1-pchisq(ts, df = n-1)
 
+varTest(baseballs$coefficient, alternative = 'greater', data.name = baseballs, sigma.squared=4)
+
 ```
 
-A. The test statistic is `r ts`.  
+A. The test statistic is `r round(ts,2)`.  
 
 B. The p-value is `r pval`.
 
-C. The null hypothesis should be rejected since the p-value is less than 0.05. Therefore, we find evidence that the true standard deviation of baseball mean rebound coefficients is greater than 2. 
+C. The null hypothesis should be rejected since the p-value is less than 0.05. Therefore, we find evidence that the true standard deviation of baseball rebound coefficients is greater than 2. 
 
 # Q5
 
-In HW4, I stated since the max standard deviation (Current samples) and min standard deviation (Stored samples) ratio is less than 2, we can assume "equal" variances and use a pooled two-sample t-test. Since the sample sizes are equal, the effect of unequal variances on the t-test is minimal. However, pooled test is preferred since the standard deviation ratio is less than 2.
+In HW4, I stated: since the max standard deviation (Current samples) and min standard deviation (Stored samples) ratio is less than 2, we can assume "equal" variances and use a pooled two-sample t-test. Since the sample sizes are equal, the effect of unequal variances on the t-test is minimal. However, pooled test is preferred since the standard deviation ratio is less than 2.  
 
-Since the p-value is greater than 0.05, the null hypothesis of 0 should be rejected. This gives evidence that the variances are not equal. *********
-
+Here, the null hypothesis is that the population variances are equal (i.e., ratio of sigma squared is 1). We fail to reject the ratio of variances squared since the p-value is greater than alpha. This indicates there is evidence that the population variances are equal. This supports the statistical result from HW4 since we concluded the standard deviation ratios are less than 2 and assumed "equal" variances. 
 
 ```{r}
 #Q5
-potency <- read_csv(here('./HW4/ex6-59.txt'), quote = "'") %>%
-  pivot_longer(everything(), names_to = 'Group',
-               values_to = 'Potency')
+potency <- read_csv(here('./HW4/ex6-59.txt'), quote = "'") 
 
-var.test(Potency ~ Group, data = potency)
+var.test(potency$Sample1, potency$Sample2)
 
 ```
 
-
-## Continue in this manner for remainder of questions
 
 # Appendix
 ```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
