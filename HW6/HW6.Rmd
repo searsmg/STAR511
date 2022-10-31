@@ -1,0 +1,161 @@
+---
+title: "STAR511: HW 6"
+author: "Megan Sears"
+output: word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+#Retain (and do not edit) this code chunk!!!
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+library(tidyverse)
+library(here)
+
+```
+
+# Q1 
+
+```{r}
+#Q1
+corn <- read_csv(here('./HW6/CornYield.csv'))
+
+ggplot(corn, aes(x=Variety, y=Yield)) +
+  geom_boxplot()
+    
+```
+
+Groups A and D seem to have similar mean yields. Group C seems to have produced a different mean yield than D and A. Group B mean yield is likely most similar to group C. 
+
+# Q2
+
+A. The null hypothesis is that the mean yields for the varieties are equal, and the alternative hypothesis is that one or more difference exists between the mean yield for the varieties. 
+
+```{r}
+#Q2
+corn_anov <- lm(Yield ~ Variety, data = corn)
+
+anova(corn_anov)
+
+```
+
+C. The p-value is 0.0000585. Here, we will reject the null hypothesis since the p-value is less than alpha. There is strong evidence indicating differences among the population-level mean yields for varieties. 
+
+# Q3
+
+```{r}
+#Q3
+par(mfrow=c(2,2))
+plot(corn_anov, 1)
+plot(corn_anov, 2)
+
+```
+
+B. The residuals versus fitted plot is assessing the variance or equality of variance. If there is equality of variance, then in the plot we will see equal scatter among the points. This plot shows primarily equal variance in the residual diagnostic plot. 
+
+C. This plot is used to check the normality of the residuals. Here, the points follow closely along the line indicating the distribution is normal.
+
+# Q4
+
+```{r}
+library('emmeans')
+
+#Q4
+lmfit <- lm(Yield ~ Variety, data = corn)
+emout <- emmeans(lmfit, ~ Variety)
+pairs(emout, adjust = 'none')
+
+```
+
+Groups B&C and A&D have p-values greater than 0.05, which indicates the null for those groups should not be rejected and the means are not significantly different. The other groups (A&B, A&C, B&D, C&D) have p-values less than 0.05, which indicates the null for those should be rejected and the means are significantly different. 
+
+#Q5
+
+```{r}
+#Q5
+pairs(emout)
+
+```
+
+This produced the same conclusions as above.Groups B&C and A&D have p-values greater than 0.05, which indicates the null for those groups should not be rejected and the means are not significantly different. The other groups (A&B, A&C, B&D, C&D) have p-values less than 0.05, which indicates the null for those should be rejected and the means are significantly different. 
+
+# Q6
+
+```{r}
+#Q6
+
+plot(pairs(emout, adjust = 'none'), horizontal = F)
+
+```
+
+# Q7
+
+```{r}
+#Q7
+plot(pairs(emout), horizontal = F)
+
+```
+
+When comparing the 2 plots, I am able to tell that the plot in Q7 has had a multiple comparisons adjustment because it has wider confidence intervals (length of blue bars) than the plot in Q6.
+
+# Q8
+
+the means and the confidence intervals *******
+
+#Q9
+
+```{r}
+#Q9
+pp <- read_csv(here('./HW6/ex8-23.txt'), quote = "'")
+
+pp <- pp %>%
+  pivot_longer(everything(), names_to = 'plant', values_to = 'EDG') %>%
+  mutate(plant = as_factor(plant)) %>%
+  na.omit()
+
+ggplot(pp, aes(x = plant, y = EDG)) +
+  geom_boxplot()
+
+```
+
+# Q10
+
+```{r}
+
+fit <- lm(EDG ~ plant, data = pp)
+anova(fit)
+
+```
+
+# Q11
+
+```{r}
+#Q11
+plot(fit, 1)
+plot(fit, 2)
+
+```
+
+The assumption of equality of variance has been violated since the scatter in the plot is not equal. For the lower fitted values, the residual range is smaller. Whereas, values 60 and greater have a larger residual range. 
+
+The normality of residuals is voilate in the second plot since the points are not on or near the line. The residuals are right skewed. **
+
+# Q12
+
+```{r}
+#Q12
+kruskal.test(EDG ~ plant, data = pp)
+
+```
+
+B. The p-value is greater than 0.05, which indicates we should fail to reject the null hypothesis. The null hypothesis is the medians are all equal and since we failed to reject the null, the medians are not significantly different. 
+
+C. We can do a hypotheses tests here even though the assumption are violated since the Kruskal-Wallis test is a non-parametric alternative to the one-way ANOVA F-test. This test does not require the assumption of normality and equality of variances. 
+
+
+# Appendix
+```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
+```
