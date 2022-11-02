@@ -21,14 +21,15 @@ library(here)
 
 ```{r}
 #Q1
-corn <- read_csv(here('./HW6/CornYield.csv'))
+corn <- read_csv(here('./HW6/CornYield.csv')) %>%
+  mutate(Variety = as.factor(Variety))
 
 ggplot(corn, aes(x=Variety, y=Yield)) +
   geom_boxplot()
     
 ```
 
-Groups A and D seem to have similar mean yields. Group C seems to have produced a different mean yield than D and A. Group B mean yield is likely most similar to group C. 
+Groups A and D seem to have similar mean yields. Group C seems to have produced a different mean yield than C, D, and A. However, Group B mean yield is likely most similar to group C. 
 
 # Q2
 
@@ -48,13 +49,12 @@ C. The p-value is 0.0000585. Here, we will reject the null hypothesis since the 
 
 ```{r}
 #Q3
-par(mfrow=c(2,2))
 plot(corn_anov, 1)
 plot(corn_anov, 2)
 
 ```
 
-B. The residuals versus fitted plot is assessing the variance or equality of variance. If there is equality of variance, then in the plot we will see equal scatter among the points. This plot shows primarily equal variance in the residual diagnostic plot. 
+B. The residuals versus fitted plot is assessing the variance or equality of variance. If there is equality of variance, then in the plot we will see equal scatter among the points. This shows primarily equal variance in the residual diagnostic plot. 
 
 C. This plot is used to check the normality of the residuals. Here, the points follow closely along the line indicating the distribution is normal.
 
@@ -72,7 +72,7 @@ pairs(emout, adjust = 'none')
 
 Groups B&C and A&D have p-values greater than 0.05, which indicates the null for those groups should not be rejected and the means are not significantly different. The other groups (A&B, A&C, B&D, C&D) have p-values less than 0.05, which indicates the null for those should be rejected and the means are significantly different. 
 
-#Q5
+# Q5
 
 ```{r}
 #Q5
@@ -80,7 +80,7 @@ pairs(emout)
 
 ```
 
-This produced the same conclusions as above.Groups B&C and A&D have p-values greater than 0.05, which indicates the null for those groups should not be rejected and the means are not significantly different. The other groups (A&B, A&C, B&D, C&D) have p-values less than 0.05, which indicates the null for those should be rejected and the means are significantly different. 
+This produced the same conclusions as above. Groups B&C and A&D have p-values greater than 0.05, which indicates the null for those groups should not be rejected and the means are not significantly different. The other groups (A&B, A&C, B&D, C&D) have p-values less than 0.05, which indicates the null for those should be rejected and the means are significantly different. 
 
 # Q6
 
@@ -102,10 +102,9 @@ plot(pairs(emout), horizontal = F)
 When comparing the 2 plots, I am able to tell that the plot in Q7 has had a multiple comparisons adjustment because it has wider confidence intervals (length of blue bars) than the plot in Q6.
 
 # Q8
+In Q6, the unadjusted CIs, represents the interval that covers the mean 95% of the time under repeated sampling for each individual group. In Q7, the Tukey CIs, represents the family-wise or collection of the groups CI. Since the chances of making a type I error for a series of comparisons is greater than individual comparisons, Tukey's methods adjusts the confidence level for each individual group so that the resulting family-wise confidence level is equal to the value specified. In other words, the individual error rates are lowered to meet the family error rate, which makes the CIs wider.  
 
-the means and the confidence intervals *******
-
-#Q9
+# Q9
 
 ```{r}
 #Q9
@@ -141,7 +140,7 @@ plot(fit, 2)
 
 The assumption of equality of variance has been violated since the scatter in the plot is not equal. For the lower fitted values, the residual range is smaller. Whereas, values 60 and greater have a larger residual range. 
 
-The normality of residuals is voilate in the second plot since the points are not on or near the line. The residuals are right skewed. **
+The normality of residuals is violated in the second plot since the points are not on or near the line. The residuals are right skewed. 
 
 # Q12
 
@@ -153,7 +152,7 @@ kruskal.test(EDG ~ plant, data = pp)
 
 B. The p-value is greater than 0.05, which indicates we should fail to reject the null hypothesis. The null hypothesis is the medians are all equal and since we failed to reject the null, the medians are not significantly different. 
 
-C. We can do a hypotheses tests here even though the assumption are violated since the Kruskal-Wallis test is a non-parametric alternative to the one-way ANOVA F-test. This test does not require the assumption of normality and equality of variances. 
+C. We can do a hypotheses test here even though the assumption are violated since the Kruskal-Wallis test is a non-parametric alternative to the one-way ANOVA F-test. This test does not require the assumption of normality and equality of variances. 
 
 
 # Appendix
