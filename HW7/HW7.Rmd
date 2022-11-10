@@ -17,9 +17,7 @@ library(here)
 
 ```
 
-# Q1 **
-
-A sample size of 15 per group is required to achieve a 90% power using alpha = 0.05.
+# Q1 
 
 ```{r}
 #Q1
@@ -27,7 +25,6 @@ A sample size of 15 per group is required to achieve a 90% power using alpha = 0
 
 
 ```
-
 
 # Q2
 
