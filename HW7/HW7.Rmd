@@ -21,15 +21,25 @@ library(here)
 
 ```{r}
 #Q1
+#n*pi hat greater than or equal to 5 AND
+#n*(1-pi hat) greater than or equal t o5
 
+n <- 65
+pi_hat <- 4/65
 
+n*pi_hat >= 5
+
+n*(1-pi_hat) >= 5
 
 ```
+
+Checking for large sample normal approximation can be done by multiplying n by $\pi$ and n(1-$\pi$). If both of those are greater than or equal to 5, then normal approximation is valid. In the first statement above, n multiplied by $\pi$ is not greater than or equal to 5. The second statement, n(1-$\pi$), is greater than 5. However, they both need to be true for the approximate to be valid.
 
 # Q2
 
 ```{r}
 #Q2
+binom.test(4, 65, p = pi_hat, conf.level = 0.9)
 
 ```
 
@@ -37,19 +47,122 @@ library(here)
 
 ```{r}
 #Q3
-
+prop.test(124, 215, correct = T)
 
 ```
+
+Our data suggest that the true population proportion of voters who support Jones for mayor is somewhere between 51 and 64 percent. 
 
 # Q4
 
  
 ```{r}
 #Q4
+prop.test(124, 215, alternative = 'greater', correct = T)
 
 ```
 
+We will reject the null hypothesis that less than half of the voters support Jones. We have evidence that more than half of registered voters support candidate Jones based on the confidence intervals being 52 to 100%. Additionally, the p-value is less than 0.05, which provides evidence that more than half off the voters support Jones. 
 
+# Q5
+
+```{r}
+#Q5
+
+me <- 0.06
+z <- 1.96
+pi_hat <- 0.5
+
+n <- (z^2 * pi_hat * (1-pi_hat)) / me^2
+
+n <- ceiling(n)
+n
+
+```
+
+The minimum sample size for no previous information about $\pi$ is 267.
+
+# Q6
+
+```{r}
+#Q6
+me <- 0.06
+z <- 1.96
+pi_hat <- 0.3
+
+n <- (z^2 * pi_hat * (1-pi_hat)) / me^2
+
+n <- ceiling(n)
+n
+
+```
+
+The minimum sample size required for conjectures $\pi$ value of 0.3 is 225.
+
+# Q7 ** two side or one side?
+
+```{r}
+#Q7
+power.prop.test(power = 0.9, p1 = 0.4, p2 = 0.1, sig.level = 0.05, alternative = 'two.sided')
+
+
+```
+
+The sample size required per group to achieve 90% is 42.
+
+# Q8 **
+
+```{r}
+#Q8
+41/75
+
+34/75
+
+```
+
+55% preferred candidate A before the debate. 45% preferred candidate A after the debate.
+
+# Q9
+
+```{r}
+#Q9
+prefer <- matrix(c(28, 13, 6, 28), byrow = T, nrow = 2)
+prefer
+
+mcnemar.test(prefer)
+
+```
+
+We cannot conclude there is a difference in proportions that voters who changed their preference after debated changed in one candidate or the othe based on the p-value being greater than alpha. ***
+
+# Q10
+
+This is not correct because the lung cancer patients and healthy controls are not a random sample of the population. It is a case-control study where lung cancer patients were selected and healthy people were selected as a control group.
+
+# Q11
+
+```{r}
+library('epitools')
+
+#Q11
+birds <- matrix(c(328, 141, 101, 98), byrow = T, nrow = 2)
+birds
+
+oddsratio(birds, method='wald')
+
+```
+
+# Q12 **
+
+The bird owning group has highers odds of getting lung cancer.
+
+# Q13 **
+
+Based on the 95% CI it does not include 1, which indicates bird ownership 
+
+# Q14 **
+
+The chi-square test p-value is less than alpha, which indicates the odds ratio of 2.26 is statistically significant.
 
 # Appendix
 ```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
