@@ -33,7 +33,7 @@ n*(1-pi_hat) >= 5
 
 ```
 
-Checking for large sample normal approximation can be done by multiplying n by $\pi$ and n(1-$\pi$). If both of those are greater than or equal to 5, then normal approximation is valid. In the first statement above, n multiplied by $\pi$ is not greater than or equal to 5. The second statement, n(1-$\pi$), is greater than 5. However, they both need to be true for the approximate to be valid.
+Checking for large sample normal approximation can be done by multiplying n by $\pi$ and n(1-$\pi$). If both of those are greater than or equal to 5, then normal approximation is valid. In the first statement above, n multiplied by $\pi$ is not greater than or equal to 5. The second statement, n(1-$\pi$), is greater than 5. However, they both need to be true for the approximation to be valid.
 
 # Q2
 
@@ -51,7 +51,7 @@ prop.test(124, 215, correct = T)
 
 ```
 
-Our data suggest that the true population proportion of voters who support Jones for mayor is somewhere between 51 and 64 percent. 
+The estimate is 58 percent and the 95% CI is 51 to 64 percent. Our data suggest that the true population proportion of voters who support Jones for mayor is somewhere between 51 and 64 percent. 
 
 # Q4
 
@@ -62,7 +62,7 @@ prop.test(124, 215, alternative = 'greater', correct = T)
 
 ```
 
-We will reject the null hypothesis that less than half of the voters support Jones. We have evidence that more than half of registered voters support candidate Jones based on the confidence intervals being 52 to 100%. Additionally, the p-value is less than 0.05, which provides evidence that more than half off the voters support Jones. 
+We will reject the null hypothesis that less than half of the voters support Jones. We have evidence that more than half of registered voters support candidate Jones based on the p-value being less than 0.05. This provides evidence that more than half off the voters support Jones. 
 
 # Q5
 
@@ -99,7 +99,7 @@ n
 
 The minimum sample size required for conjectures $\pi$ value of 0.3 is 225.
 
-# Q7 ** two side or one side?
+# Q7 
 
 ```{r}
 #Q7
@@ -110,7 +110,7 @@ power.prop.test(power = 0.9, p1 = 0.4, p2 = 0.1, sig.level = 0.05, alternative =
 
 The sample size required per group to achieve 90% is 42.
 
-# Q8 **
+# Q8
 
 ```{r}
 #Q8
@@ -133,7 +133,7 @@ mcnemar.test(prefer)
 
 ```
 
-We cannot conclude there is a difference in proportions that voters who changed their preference after debated changed in one candidate or the othe based on the p-value being greater than alpha. ***
+We cannot conclude there is a difference in proportions of voters who changed their preference after the debate changed in favor of one candidate or the other based on the p-value being greater than alpha. Therefore, we fail to reject the null hypothesis that the probability of switching preference, from A to B or B to A, is equal.
 
 # Q10
 
@@ -152,17 +152,19 @@ oddsratio(birds, method='wald')
 
 ```
 
-# Q12 **
+odds of cancer given having a bird divided by odds of cancer for no bird
 
-The bird owning group has highers odds of getting lung cancer.
+# Q12 
 
-# Q13 **
+The odds are 2.26 times greater for having cancer when owning a bird than having cancer and no bird. 
 
-Based on the 95% CI it does not include 1, which indicates bird ownership 
+# Q13 
 
-# Q14 **
+Based on the 95% CI it does not include 1. Therefore, the odds of having cancer when owning a bird are not equal to having cancer and not owing a bird.
 
-The chi-square test p-value is less than alpha, which indicates the odds ratio of 2.26 is statistically significant.
+# Q14 
+
+The chi-square test p-value is less than alpha, which indicates the odds for having cancer are significantrly greater for bird owners.
 
 # Appendix
 ```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
