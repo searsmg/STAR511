@@ -1,0 +1,156 @@
+---
+title: "STAR511: HW 8"
+author: "Megan Sears"
+output: word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+#Retain (and do not edit) this code chunk!!!
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+library(tidyverse)
+library(here)
+library(ggplot2)
+
+```
+
+# Q1
+
+
+```{r}
+#Q1
+prestige <- read.csv('./HW8/Prestige.csv', row.names=1)
+
+pairs(prestige)
+
+```
+
+
+# Q2
+
+```{r}
+#Q2
+cor(prestige)
+
+```
+
+# Q3
+
+```{r}
+#Q3
+cor.test(x=prestige$income, y=prestige$prestige)
+
+```
+
+# Q4
+
+```{r}
+#Q4
+summary(lm(prestige$prestige ~ prestige$income))
+
+```
+
+# Q5 **
+
+# Q6 ** 
+
+# Q7
+
+```{r}
+#Q7
+model <- lm(prestige$prestige ~ prestige$income)
+
+par(mfrow=c(1,2))
+
+plot(model, which = c(1:2))
+
+```
+
+# Q8
+
+```{r}
+#Q8
+model2 <- lm(prestige ~ income + education, data = prestige)
+summary(model2)
+
+```
+
+# Q9 ** 
+
+# Q10
+
+```{r}
+#Q10 
+par(mfrow=c(1,2))
+
+plot(model2, which = c(1:2))
+
+```
+
+# Q11 **
+
+# Q12
+
+```{r}
+#Q12
+steel <- read_csv('./HW8/Steel.csv')
+
+ggplot(steel, aes(x=Thick, y=Strength)) +
+  geom_point() + 
+  labs(x='Coating Thickness')
+
+```
+
+# Q13
+
+```{r}
+#Q13
+steelmod <- lm(steel$Strength ~ steel$Thick)
+
+par(mfrow=c(1,2))
+
+plot(steelmod, which = c(1:2))
+
+```
+
+# Q14 **
+
+# Q15
+
+```{r}
+#Q15
+steelmod_quad <- lm(Strength ~ Thick + I(Thick^2), data = steel)
+
+summary(steelmod_quad)
+
+```
+
+# Q16 **
+
+```{r}
+#Q16
+par(mfrow=c(1,2))
+
+plot(steelmod_quad, which = c(1:2))
+
+
+```
+
+# Q17
+
+```{r}
+qplot(x = Thick, y = Strength, data = steel) +
+  geom_smooth(method = 'lm', formula = y ~ poly(x, 2), se = FALSE)
+
+```
+
+
+
+
+# Appendix
+```{r show-code, ref.label = all_labels(), echo = TRUE, eval = FALSE}
+```
