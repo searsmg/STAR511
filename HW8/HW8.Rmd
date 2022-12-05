@@ -54,9 +54,14 @@ summary(lm(prestige$prestige ~ prestige$income))
 
 ```
 
-# Q5 **
+# Q5 
 
-# Q6 ** 
+Based on the p-value (less than alpha) from Pearson's correlation and the correlation coefficient (0.71), there is a linear association between the two variables. Further, since there is a positive correlation (0.71), as income rises so does prestige. The null hypothesis, that there is no linear association or that the slope is 0, should be rejected based on the p-value from the correlation test and linear model (slope p-value). 
+
+# Q6
+
+The slope from the linear model is 0.0029 with an associate p-value less than 0.05. Therefore, for every dollar increase in income, prestige increases by an estimate value of 0.0029.
+
 
 # Q7
 
@@ -79,7 +84,9 @@ summary(model2)
 
 ```
 
-# Q9 ** 
+# Q9
+
+The slope from the linear model is 0.0014 with an associate p-value less than 0.05. Therefore, for every dollar increase in income, prestige increases by an estimate value of 0.0014. This is less than seen in question 6.
 
 # Q10
 
@@ -91,7 +98,9 @@ plot(model2, which = c(1:2))
 
 ```
 
-# Q11 **
+# Q11 
+
+The R-squared value is 0.798. This is a measure of how well the model is fitting the actual data. Approximately 80% of the variance found in prestige can be explained by income and education. 
 
 # Q12
 
@@ -117,7 +126,9 @@ plot(steelmod, which = c(1:2))
 
 ```
 
-# Q14 **
+# Q14
+
+No, the regression assumptions have not been met. The lower and higher values have lower range of residuals than the rest causing an almost upside u-shape in the data. Additionally, based on the Q-Q plot, the data are left skewed, or lower values are not near the line. 
 
 # Q15
 
@@ -129,7 +140,7 @@ summary(steelmod_quad)
 
 ```
 
-# Q16 **
+# Q16
 
 ```{r}
 #Q16
@@ -137,8 +148,9 @@ par(mfrow=c(1,2))
 
 plot(steelmod_quad, which = c(1:2))
 
-
 ```
+
+Based on the Q-Q plot from Q15, the data appear to be normal especially when comparing the skew seen in this plot from Q13. The residuals plot still has larger range for tail ends of the data with values in between have a smaller range of residuals. 
 
 # Q17
 
