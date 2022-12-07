@@ -100,7 +100,7 @@ plot(model2, which = c(1:2))
 
 # Q11 
 
-The R-squared value is 0.798. Therefire, approximately 80% of the variability found in prestige can be explained by the linear regression on income and education. 
+The R-squared value is 0.798. Therefore, approximately 80% of the variability found in prestige can be explained by the linear regression on income and education. 
 
 # Q12
 
@@ -110,8 +110,8 @@ steel <- read_csv('C:/Users/sears/Documents/Repos/STAR511/HW8/Steel.csv')
 
 ggplot(steel, aes(x=Thick, y=Strength)) +
   geom_point() + 
-  labs(x='Coating Thickness') +
-  geom_smooth(method = 'lm')
+  labs(x='Coating Thickness') #+
+  #geom_smooth(method = 'lm')
 
 ```
 
@@ -129,7 +129,7 @@ plot(steelmod, which = c(1:2))
 
 # Q14
 
-No, the regression assumptions have not been met for equal variance and  normality. The lower and higher fitted values on the residuals versus fitted plot have smaller residual values than the rest causing an almost upside u-shape in the data. Additionally, based on the Q-Q plot, the data are left skewed, or lower values are not near the line. 
+No, the regression assumptions have not been met for equal variance and  normality. The lower and higher fitted values on the residuals versus fitted plot have smaller residual values than the rest causing an almost upside u-shape in the residual data. Additionally, based on the Q-Q plot, the data are left skewed, or lower values are not near the line. 
 
 # Q15
 
@@ -151,7 +151,7 @@ plot(steelmod_quad, which = c(1:2))
 
 ```
 
-Based on the Q-Q plot from Q15, the data appear to be normal especially when comparing the skew seen in the plot from Q13. The residuals plot has larger spread for tail ends of the data, but appears to be better than the residuals versus fitted plot in Q13.
+Based on the Q-Q plot from Q15, the data appear to be normal. This is an improvement from the left skew seen in the Q-Q plot from Q13. The residuals plot has larger spread for tail ends of the data, but appears to be an improvement from the the residuals versus fitted plot in Q13.
 
 # Q17
 
